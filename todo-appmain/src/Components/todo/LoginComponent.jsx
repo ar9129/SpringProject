@@ -8,13 +8,13 @@ import {useAuth} from "./security/AuthContext";
 
 export default function LoginComponent() {
 
-    const [Username, setUsername] = useState("manish");
+    const [Username, setUsername] = useState("aditya");
   
     function handleUsernameChange(event) {
       setUsername(event.target.value);
     }
   
-    const [Password, setPassword] = useState("password");
+    const [Password, setPassword] = useState("dummy");
   
     function handlePasswordChange(event) {
       setPassword(event.target.value);

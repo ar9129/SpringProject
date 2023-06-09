@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { deleteTodoApi, retrieveAllTodosForUsernameApi } from "./api/TodoApiService";
 import { useAuth} from "./security/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ListTodosComponent() {
      const authContext = useAuth()
      const username = authContext.username
+     const navigate = useNavigate()
     const today = new Date();
     const targetDate = new Date(
       today.getFullYear() + 12,
@@ -55,6 +57,15 @@ export default function ListTodosComponent() {
         error=>console.log(error)
       )
     }
+    function updateTodo(id){
+      console.log('clicked' +id)
+      navigate(`/todo/${id}`)
+    }
+
+    function createTodo(){
+      // console.log('clicked' +id)
+      navigate(`/todo/-1`)
+    }
 
     return (
       <div className="container">
@@ -70,6 +81,7 @@ export default function ListTodosComponent() {
                 <th>Done?</th>
                 <th>Target Date</th>
                 <th>Delete</th>
+                <th>Update</th>
               </tr>
             </thead>
   
@@ -82,11 +94,14 @@ export default function ListTodosComponent() {
                   <td>{todo.done.toString()}</td>
                   <td>{todo.targetDate.toString()}</td>
                   <td><button className="btn btn-warning" onClick={()=>deleteTodo(todo.id)}>Delete</button></td>
+                  <td><button className="btn btn-warning" onClick={()=>updateTodo(todo.id)}>Update</button></td>
+                  
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        <div className="btn btn-success" onClick={createTodo}>Add new Todo</div>
       </div>
     );
   }
